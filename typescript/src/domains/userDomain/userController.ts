@@ -35,7 +35,7 @@ userRouter.post("/", (req: Request, res: Response) => {
         res.status(500).send(APIError(500, 1, UserErrors.DUPLICATE_ID.message));
         break;
       default:
-        console.log(error);
+        console.error(error);
         res.status(500).send(APIError(500, 1, "Internal Error"));
     }
   }
@@ -52,7 +52,7 @@ userRouter.get("/", (req: Request, res: Response) => {
         res.status(204).send();
         break;
       default:
-        console.log(error);
+        console.error(error);
         res.status(500).send(APIError(500, 1, "Internal Error"));
     }
   }
@@ -80,7 +80,7 @@ userRouter.get("/:id", (req: Request, res: Response) => {
           .send(APIError(501, 1, UserErrors.NOT_IMPLEMENTED.message));
         break;
       default:
-        console.log(error);
+        console.error(error);
         res.status(500).send(APIError(500, 1, "Internal Error"));
     }
   }
