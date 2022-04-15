@@ -5,12 +5,20 @@ import { IOrder, IOrderRepo } from "./orderRepo";
 
 export interface IOrderService {
   addOrder(order: IOrder): Promise<Number>;
+  getOrders(): IOrder[];
 }
 
 export class OrderService implements IOrderService {
   private dao: IOrderRepo;
   constructor(dao: IOrderRepo) {
     this.dao = dao;
+  }
+  getOrders(): IOrder[] {
+    try {
+      return this.dao.getOrders();
+    } catch (error) {
+      throw error;
+    }
   }
   async addOrder(order: IOrder): Promise<Number> {
     try {
@@ -27,11 +35,7 @@ export class OrderService implements IOrderService {
 
   private async validateUserId(userId: Number): Promise<void> {
     try {
-      const id = await HttpGet<IUser>(
-        `http://localhost:3001/users/${userId}`,
-        200
-      );
-      console.log(id);
+      await HttpGet<void>(`http://localhost:3001/users/${userId}`, 200);
     } catch (error) {
       throw error;
     }
